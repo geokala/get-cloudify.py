@@ -590,7 +590,7 @@ def parse_args(args=None):
         help='Path to wheels (defaults to "<cwd>/wheelhouse").')
     if IS_WIN:
         parser.add_argument(
-            '--pythonpath', type=str, default='c:/python27/python.exe',
+            '--pythonpath', type=str, default=sys.executable,
             help='Python path to use (defaults to "c:/python27/python.exe") '
                  'when creating a virtualenv.')
     else:
