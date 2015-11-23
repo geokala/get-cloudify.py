@@ -115,7 +115,7 @@ PYCR64_URL = 'http://www.voidspace.org.uk/downloads/pycrypto26/pycrypto-2.6.win-
 PYCR32_URL = 'http://www.voidspace.org.uk/downloads/pycrypto26/pycrypto-2.6.win32-py2.7.exe'  # NOQA
 
 PLATFORM = sys.platform
-IS_WIN = (PLATFORM == 'win32')
+IS_WIN = os.name == 'nt'
 IS_DARWIN = (PLATFORM == 'darwin')
 IS_LINUX = (PLATFORM == 'linux2')
 
@@ -295,7 +295,7 @@ class CloudifyInstaller():
     def __init__(self, force=False, upgrade=False, virtualenv='',
                  version='', pre=False, source='', withrequirements='',
                  forceonline=False, wheelspath='wheelhouse',
-                 pythonpath='python', installpip=False,
+                 pythonpath=sys.executable, installpip=False,
                  installvirtualenv=False, installpythondev=False,
                  installpycrypto=False, os_distro=None, os_release=None,
                  **kwargs):
@@ -595,9 +595,9 @@ def parse_args(args=None):
                  'when creating a virtualenv.')
     else:
         parser.add_argument(
-            '--pythonpath', type=str, default='python',
-            help='Python path to use (defaults to "python") '
-                 'when creating a virtualenv.')
+            '--pythonpath', type=str, default=sys.executable,
+            help='Python path to use (defaults to the current Python '
+                 'executable) when creating a virtualenv.')
     parser.add_argument(
         '--installpip', action='store_true',
         help='Attempt to install pip.')

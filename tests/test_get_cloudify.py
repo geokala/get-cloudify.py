@@ -130,6 +130,8 @@ class CliBuilderUnitTests(testtools.TestCase):
             'Could not install module: nonexisting_module.', ex.message)
 
     def test_get_os_props(self):
+        if get_cloudify.IS_WIN:
+            self.skipTest('Irrelevant on Windows.')
         distro = self.get_cloudify.get_os_props()[0]
         distros = ('ubuntu', 'redhat', 'debian', 'fedora', 'centos',
                    'archlinux')
@@ -138,6 +140,8 @@ class CliBuilderUnitTests(testtools.TestCase):
                       '{1}'.format(distro, distros))
 
     def test_download_file(self):
+        if get_cloudify.IS_WIN:
+            self.skipTest('Irrelevant on Windows.')
         self.get_cloudify.VERBOSE = True
         tmp_file = tempfile.NamedTemporaryFile(delete=True)
         self.get_cloudify.download_file('http://www.google.com', tmp_file.name)
